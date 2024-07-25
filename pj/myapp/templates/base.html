@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>insta485</title>
+   
+</head>
+
+<body>
+    
+
+
+      
+    <p id = "twolink">
+        <a href  = "/explore/"> explore</a> | <a href  = "/users/{{logname}}/"> {{logname}}</a>
+    </p>
+    
+    <a href = "/"> go to main page</a>
+    <script src="{% static 'js/bundle.js' %}"></script>
+   
+</body>
+
+</html>
