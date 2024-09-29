@@ -4,6 +4,8 @@ import heapq
 from collections import defaultdict
 import os
 from pathlib import Path
+import matplotlib
+matplotlib.use('Agg')
 import json
 from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
@@ -11,6 +13,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from .Api import gpt_request 
 
+
+current_grade  = []
 # Helper function: calculate averages with fallback
 def calculate_avg_with_fallback(hw_scores, quiz_scores, exam_scores):
     # hw_scores = [float(score) for score in hw_scores if isinstance(score, (int, float, str)) and str(score).replace('.', '', 1).isdigit()]
@@ -195,13 +199,18 @@ def calculate(request):
         'Quiz_scores': [[]], # Placeholder for Quiz scores
         'Exam_scores': [[]]  # Empty exam scores for testing
     }
-
+    total_hw = 0
+    total_quiz = 0
+    total_exam =0
     for item in Grades_:
         if item['type'] == 'Quiz':
             data['Quiz_scores'][0] = [int(num) for num in item['grades'] if num] # Add quiz scores
+            total_quiz = len(item['grades'])
         elif item['type'] == 'Exam':
+            total_exam =len(item['grades'])
             data['Exam_scores'][0] =  [int(num) for num in item['grades'] if num]  # Add exam scores
         elif item['type'] == 'Assignment':
+            total_hw = len(item['grades'])
             data['HW_scores'][0] =  [int(num) for num in item['grades'] if num]
     
     # print(type(data['Quiz_scores'][0][0]))
@@ -223,10 +232,6 @@ def calculate(request):
     quiz_scores = list(df['Quiz_scores'][0])
     exam_scores = list(df['Exam_scores'][0])
 
-    # Define total future assessments to simulate
-    total_hw = 5
-    total_quiz = 3
-    total_exam = 2
 
     # Simulate scores for different modes
     modes = ['trend', 'improve', 'regress']
@@ -237,7 +242,7 @@ def calculate(request):
     # Current final score calculation
     if hw_avg is not None and quiz_avg is not None and exam_avg is not None:
         current_final_score = weighted_average(hw_avg, quiz_avg, exam_avg, len(hw_scores), len(quiz_scores), len(exam_scores))
-
+        current_grade.append(current_final_score)
         future_scores_all_modes = {
             mode: simulate_future_scores(
                 current_final_score,
@@ -269,38 +274,36 @@ def calculate(request):
                 print(f"Your {name} will probably be {simulated_score}, and the final score will be: {score:.2f}({evaluate_grade(score)}) ")
         output_result = "\n".join(output_lines)
         # Create meaningful x-axis labels for future simulations
-        # labels = []
-        # for i in range(1, total_hw + 1):
-        #     labels.append(f"HW{i+len(hw_scores)}")
-        # for i in range(1, total_quiz + 1):
-        #     labels.append(f"Quiz{i+len(quiz_scores)}")
-        # for i in range(1, total_exam + 1):
-        #     labels.append(f"Exam{i+len(exam_scores)}")
+        labels = []
+        for i in range(1, total_hw + 1):
+            labels.append(f"HW{i+len(hw_scores)}")
+        for i in range(1, total_quiz + 1):
+            labels.append(f"Quiz{i+len(quiz_scores)}")
+        for i in range(1, total_exam + 1):
+            labels.append(f"Exam{i+len(exam_scores)}")
 
-        # Plotting the score trends
-        # plt.figure(figsize=(10, 6))
-        # for mode, (scores, _, __) in future_scores_all_modes.items():
-        #     plt.plot(scores, label=f'Predicted Scores - {mode}', marker='o')
-        
-        # plt.axhline(y=current_final_score, color='r', linestyle='--', label='Current Overall Score')
-        # plt.title('Future Score Simulation with Individual Predictions')
-        # plt.xlabel('Simulation Round')
-        # plt.ylabel('Predicted Scores')
+        plt.figure(figsize=(10, 6))
+        for mode, (scores, name, __) in future_scores_all_modes.items():
+            plt.plot(scores, label=f'Predicted Scores - {mode}', marker='o')
 
-        # # Set x-axis labels
-        # max_length = max(len(scores) for scores, _, __ in future_scores_all_modes.values())
-        # full_labels = ['Start'] + labels[:max_length-1]  # Add the "Start" for the current score point
-        # plt.xticks(range(max_length), full_labels, rotation=45)
+        plt.axhline(y=current_final_score, color='r', linestyle='--', label='Current Overall Score')
+        plt.title('Future Score Simulation with Individual Predictions')
+        plt.xlabel('Simulation Round')
+        plt.ylabel('Predicted Scores')
 
-        # plt.legend()
-        # plt.grid()
-        # plt.tight_layout()
-        # plt.show()
+        # Set x-axis labels using the tick_name list
+        plt.xticks(ticks=range(len(simulation_name)), labels=simulation_name, rotation=45)
+
+        plt.legend()
+        plt.grid()
+        plt.tight_layout()
+        plt.savefig('pj/static/logo/plot.png') 
 
     else:
         print("Invalid data. Cannot proceed with calculations.")
-
+    print(len(current_grade))
     response = gpt_request(output_result, destination_query)
+    cur_grade =evaluate_grade(current_grade[0])
 
-    return JsonResponse({'response': response}, status=200)
+    return JsonResponse({'response': response, "current_grade" : cur_grade }, status=200)
 

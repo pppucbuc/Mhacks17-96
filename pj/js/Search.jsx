@@ -32,7 +32,7 @@ const SearchComponent = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        setFetchedResults(data.response); // Store fetched results in state
+        setFetchedResults(data); // Store fetched results in state
       })
       .catch(error => {
         console.error('Error:', error);
@@ -145,12 +145,24 @@ const SearchComponent = () => {
 
       {/* Display fetched results */}
             <div className="body_grade">
-              <h2>Academic Advisor:</h2>
+              {/* <h2>Current grade: </h2> */}
               {fetchedResults ? ( // Check if fetchedResults is not an empty string
-                <p>{fetchedResults}</p> // Display the string directly
+                <h2>Current grade: {fetchedResults.current_grade}</h2> // Display the string directly
               ) : (
-                <p>No results to display.</p>
+                <p>Current grade: </p>
               )}
+              <h2>Academic Advisor:</h2>
+              {fetchedResults && fetchedResults.response ? ( 
+                    <div>
+                      <p>{fetchedResults.response}</p> 
+                      {/* <h2>Your grade trend:</h2>
+                      <img src="static/logo/plot.png" class = "grade_trend"alt = "">  </img> */}
+                    </div>
+                  ) : (
+                    <p></p>
+                  )}
+
+            
             </div>
     </div>
     

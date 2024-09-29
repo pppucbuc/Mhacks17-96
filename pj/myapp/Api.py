@@ -3,12 +3,7 @@ from openai import OpenAI
 
 # Enter your Assistant ID here.
 def gpt_request(data, expect):
-    ASSISTANT_ID = "asst_Df7MNPKXm6XdlfrlXlMIdfnQ"       # to do
 
-    # Make sure your API key is set as an environment variable. # to do
-    client = OpenAI(api_key = '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')
-
-    
 
     # Create a thread with a message, put this in the route that handle the form submission on the website 
     Message = f"The student is expect to get an {expect}. encourage the student if his expectation is higher than the prediction and tell the student the area(quiz, assignment, exam, project, participation) they should improve.Praise the student if his expectation is the same or lower than the prediction. Here is the prediction:{data}"       # to do
