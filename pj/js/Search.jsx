@@ -76,11 +76,8 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className="body_grade">
-      <div class = 'center'>
-        123123
-      </div>
-      <div>
+    <div className="container_body_grade">
+      <div class = "body_grade">
         <button onClick={addForm} className="cute-button">Add New Item</button>
         {forms.map((form, itemIndex) => (
           <div key={itemIndex} className="grade-form">
@@ -90,17 +87,28 @@ const SearchComponent = () => {
             {form.grades.map((grade, gradeIndex) => (
               <div key={gradeIndex} className="grade-input">
                 <input
+                  class = 'search-box'
                   type="text"
                   value={grade}
                   onChange={(e) => handleGradeChange(itemIndex, gradeIndex, e.target.value)}
                   placeholder={`${form.type} Grade ${gradeIndex + 1}`}
                 />
-                <button onClick={() => deleteGradeField(itemIndex, gradeIndex)} className="delete-grade-button">-</button>
+                <button onClick={() => deleteGradeField(itemIndex, gradeIndex)} className="delete-button">X</button>
               </div>
             ))}
             <button onClick={() => deleteItem(itemIndex)} className="delete-button">Delete Item</button>
           </div>
         ))}
+        <form onSubmit={handleSearch}>
+        <input
+          class =  'search-box'
+          type="text"
+          value={destinationQuery}
+          onChange={(e) => setDestinationQuery(e.target.value)}
+          placeholder="Enter your expectation"
+        />
+        <button type="submit" className="cute-button">Submit</button>
+      </form>
       </div>
 
       {showModal && (
@@ -113,6 +121,7 @@ const SearchComponent = () => {
               </button>
             ))}
             <input
+              class = 'search-box'
               type="number"
               value={newItemWeight}
               onChange={(e) => setNewItemWeight(e.target.value)}
@@ -123,26 +132,29 @@ const SearchComponent = () => {
         </div>
       )}
 
-      <form onSubmit={handleSearch}>
+      {/* <form onSubmit={handleSearch}>
         <input
+          class =  'search-box'
           type="text"
           value={destinationQuery}
           onChange={(e) => setDestinationQuery(e.target.value)}
-          placeholder="Enter destination"
+          placeholder="Enter your expectation"
         />
         <button type="submit" className="cute-button">Submit</button>
-      </form>
+      </form> */}
 
       {/* Display fetched results */}
-      <div className="results">
-        <h2>Academic Advisor:</h2>
-        {fetchedResults ? ( // Check if fetchedResults is not an empty string
-          <p>{fetchedResults}</p> // Display the string directly
-        ) : (
-          <p>No results to display.</p>
-        )}
-      </div>
+            <div className="body_grade">
+              <h2>Academic Advisor:</h2>
+              {fetchedResults ? ( // Check if fetchedResults is not an empty string
+                <p>{fetchedResults}</p> // Display the string directly
+              ) : (
+                <p>No results to display.</p>
+              )}
+            </div>
     </div>
+    
+    
   );
 };
 
