@@ -21,4 +21,5 @@ from myapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('api/calculate/', views.calculate, name='calculate'),
 ]

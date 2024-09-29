@@ -1,0 +1,229 @@
+.window {
+    border: 2px solid black; /* 2px thick black border */
+    padding: 10px; /* Optional: Add some padding */
+    width: 500px; /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    display: block; /* Ensures the canvas behaves like a block element */
+}
+
+
+.cute-button {
+    background-color: #ff7f7f;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .cute-button:hover {
+    background-color: #ff4c4c;
+    transform: scale(1.1);
+  }
+  
+  .cute-button:active {
+    background-color: #ff1a1a;
+    transform: scale(0.9);
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .item-type-button, .delete-button, .close-button {
+    margin: 5px;
+  }
+
+
+
+  /* Navigation */
+  .navigation{
+    position: absolute;
+    height: 112px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    background: #ADD8E6;
+    opacity: 0; /* Initial state */
+    animation: fadeIn 2s ease-in-out forwards;
+  }
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+  .header_grade{
+    position: absolute;
+    height: 149px;
+    left: 0px;
+    right: 0px;
+    top: 112px;
+    background: #FFFFFF;
+    opacity: 0; /* Initial state */
+    animation: fadeIn 2s ease-in-out forwards;
+
+
+  }
+/* scoreo */
+.title_grade{
+  position: absolute;
+  height: 149px;
+  left: 0px;
+  right: 0px;
+  top: 130px;
+  
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #444;
+  animation: fadeIn 2s ease-in-out forwards, bounce 2s ease-in-out;
+  background: #FFFFFF;
+  /* opacity: 0; 
+  animation: slideAndFadeIn 2s ease-out 0.5s forwards;  */
+}
+.title_text{
+  /* Basket */
+
+  position: absolute;
+  width: 181px;
+  height: 77px;
+  left: 96px;
+  bottom: 16px;
+
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 120%;
+  /* identical to box height, or 77px */
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: -0.02em;
+
+  color: #000000;
+
+
+}
+
+
+.body_grade{
+  box-sizing: border-box; /* Ensures padding is included in the total width and height */
+  position: absolute;
+  left: 96px;
+  right: 523px;
+  top: 301px;
+
+  background: #FAFAF5;
+  border: 2px solid #E6E6E6; /* Uncomment to enable border */
+  border-radius: 24px; /* Uncomment to enable rounded corners */
+  
+  padding: 16px; 
+
+}
+
+.nav_text{
+  /* World Peas */
+
+position: absolute;
+width: 151px;
+height: 32px;
+left: 96px;
+top: 41px;
+
+font-family: 'Newsreader';
+font-style: normal;
+font-weight: 500;
+font-size: 32px;
+line-height: 100%;
+/* identical to box height, or 32px */
+letter-spacing: -0.01em;
+opacity: 0; /* Initial state */
+animation: fadeIn 2s ease-in-out forwards;
+
+color: #426B1F;
+
+
+}
+
+.bc{
+  /* Shop */
+
+position: absolute;
+width: 39px;
+height: 32px;
+left: 200px;
+top: 41px;
+
+font-family: 'Newsreader';
+font-style: normal;
+font-weight: 200;
+font-size: 32px;
+line-height: 100%;
+/* identical to box height, or 77px */
+display: flex;
+align-items: flex-end;
+letter-spacing: -0.02em;
+opacity: 0; /* Initial state */
+animation: fadeIn 2s ease-in-out forwards;
+
+color: #000000;
+
+
+}
+.image_pos{
+  position: absolute;
+  width: 181px;
+  height: 77px;
+  left: 96px;
+  bottom: 16px;
+}
+
+
+@keyframes slideAndFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px); /* Start 100px to the left */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Move to original position */
+  }
+}
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+
+}
+
+.center{
+  left: 50%; /* Move it to the middle of the container */
+  top: 50%; /* Move it down to the middle of the container */
+  transform: translate(-50%, -50%); /* Shift it back by half of its width and height */
+}

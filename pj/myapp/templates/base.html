@@ -4,20 +4,36 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>insta485</title>
+    <title>scoreo</title>
    
 </head>
 
 <body>
-    
+
 
 
       
-    <p id = "twolink">
-        <a href  = "/explore/"> explore</a> | <a href  = "/users/{{logname}}/"> {{logname}}</a>
+    <p class = "navigation">
+        <p class = "nav_text">
+            <a href  = "/"> About</a>
+        </p>
+        <!-- <p class = 'bc'>
+            <a href = "/"> About</a>
+        </p> -->
+
     </p>
+    <div class = "title_grade">
+        <p class = "title_text">
+            scoreo
+        </p>
+
+        <img src="{% static 'logo/sq.jpg' %}" alt="Logo" class = 'image_pos'>
+    </div>
     
-    <a href = "/"> go to main page</a>
+    <div id="reactEntry">
+        Loading ...
+    </div>
+      <!-- Load JavaScript -->
     <script src="{% static 'js/bundle.js' %}"></script>
    
 </body>
