@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>scoreo</title>
+   
+</head>
+
+<body>
+
+
+
+      
+    <p class = "navigation">
+        <p class = "nav_text">
+            <a href  = "/"> About</a>
+        </p>
+        <!-- <p class = 'bc'>
+            <a href = "/"> About</a>
+        </p> -->
+
+    </p>
+    <div class = "title_grade">
+        <p class = "title_text">
+            scoreo
+        </p>
+
+        <img src="{% static 'logo/sq.jpg' %}" alt="Logo" class = 'image_pos'>
+    </div>
+    
+    <div id="reactEntry">
+        Loading ...
+    </div>
+      <!-- Load JavaScript -->
+    <script src="{% static 'js/bundle.js' %}"></script>
+   
+</body>
+
+</html>
